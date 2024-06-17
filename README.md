@@ -82,6 +82,6 @@
 
 
 # Getting started
-* Clone the project git clone [https://github.com/seo423/next.js-human-resource-project.git;](https://github.com/seo423/nuxt.js-logistics-project.git](https://github.com/seo423/nuxt.js-logistics-project.git);
+* Clone the project git clone https://github.com/seo423/next.js-human-resource-project.git;
 * Use pnpm install to install all dependencies and necessary packages;
 * Run the server using pnpm run sever.
