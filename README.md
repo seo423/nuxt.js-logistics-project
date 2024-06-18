@@ -1,5 +1,5 @@
 # Project Overview: Logistics Management System
-### Duration: March 2024 - June 2024 
+### Duration: August 2023 - December 2023 
 
 ## ✔️ Key Features
 >  **Quotation Management**
