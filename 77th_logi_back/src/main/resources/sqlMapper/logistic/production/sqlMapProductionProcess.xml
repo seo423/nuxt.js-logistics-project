@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.seoulit.erp.logistic.production.dao.ProductionProcessDAO">
+
+	<resultMap id="ProductionProcessResult" type="ProductionProcessTO">
+		<result property="productionProcessCode" column="PRODUCTION_PROCESS_CODE"  />
+		<result property="productionProcessName" column="PRODUCTION_PROCESS_NAME"  />
+	</resultMap>
+
+	<select id="ProductionProcessList" resultMap="ProductionProcessResult">
+		SELECT UNIQUE PRODUCTION_PROCESS_CODE, PRODUCTION_PROCESS_NAME FROM PRODUCTION_PROCESS
+	</select>
+
+
+</mapper>
