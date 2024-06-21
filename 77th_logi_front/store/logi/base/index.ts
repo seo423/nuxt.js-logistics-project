@@ -16,7 +16,11 @@ import {
   updateGeneralClient,
   updateWorkplace,
   getCodeList,
-  getWarehouseList
+  getWarehouseList,
+  getFinanceDetail,
+  addWarehouseList,
+  deleteWarehouseList,
+  searchClientDetailList,
 } from '@/api/logi/base'
 
 export const baseStore = defineStore('baseStore', {
@@ -33,11 +37,15 @@ export const baseStore = defineStore('baseStore', {
     addGeneralClientInfo: [] as any, // 일반거래처 추가
     updateGeneralClientInfo: [] as any, // 일반거래처 수정
     deleteGeneralClientInfo: [] as any, // 일반거래처 삭제
-    financeClientInfo: [] as any, // 금융거래처 조회
+    getFinanceClient: [] as any, // 금융거래처 조회
     addfinanceClientInfo: [] as any, // 금융거래처 추가
     updatefinanceClientInfo: [] as any, // 금융거래처 수정
     deletefinanceClientInfo: [] as any, // 금융거래처 삭제
     getWarehouseList: [] as any, // 창고 조회
+    FinanceDetailInfo: [] as any, // 금융거래처 상세조회
+    addWarehouse: [] as any, //창고추가
+    deleteWarehouse: [] as any, //창고삭제
+    clientDetailList : [] as any, //일반거래처 상세조회
   }),
   actions: {
     // 회사정보 조회
@@ -74,8 +82,8 @@ export const baseStore = defineStore('baseStore', {
       try {
         const res = await getCodeList(divisionCode)
 
-        console.log('ddd', res)
-        console.log('ddd', res.data)
+        console.log('GET_CODELIST', res)
+        console.log('GET_CODELIST', res.data)
 
         this.detailCodeList = res.data.detailCodeList
       }
@@ -299,5 +307,67 @@ export const baseStore = defineStore('baseStore', {
         console.error('Error fetching data:', error)
       }
     },
+
+    // 금융거래처 상세조회 78th추가
+    async GET_FINANCE_DETAIL_INFO(code:string) {
+      try {
+        const res = await getFinanceDetail(code)
+
+        console.log('FinanceDetailInfoㅁㅇㅇ', res)
+        console.log('FinanceDetailInfo ㅁㅇㅇ', res.data)
+
+        this.FinanceDetailInfo = res.data.financeDetailInfo[0]
+      }
+      catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    },
+
+        // 창고추가 78th추가 
+    async ADD_WAREHOUSE_LIST(batchList:any) {
+      try {
+        const res = await addWarehouseList(batchList)
+
+        console.log('addWarehouseList', res)
+        console.log('addWarehouseList', res.data)
+
+        this.addWarehouse = res.data
+      }
+      catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    },
+
+        // 창고삭제 78th추가 
+    async DELETE_WAREHOUSE_LIST(deleteList:any) {
+      try {
+        const res = await deleteWarehouseList(deleteList)
+
+        console.log('deleteWarehouseList', res)
+        console.log('deleteWarehouseList', res.data)
+
+        this.deleteWarehouse = res.data
+      }
+      catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    },
+
+        // 일반거래처 상세조회 78th추가
+    async SEARCH_CLIENT_DETAIL_URL(customerCodes:string) {
+      try {
+        const res = await searchClientDetailList(customerCodes)
+
+        console.log('clientDetailList', res)
+        console.log('clientDetailList ㅁㅇㅇ', res.data)
+
+        this.clientDetailList = res.data.clientDetailInfo[0]
+      }
+      catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    },
+
+
   },
 })

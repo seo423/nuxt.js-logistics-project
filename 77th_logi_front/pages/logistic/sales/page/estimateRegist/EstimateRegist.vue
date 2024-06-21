@@ -229,10 +229,10 @@ const selectedCode = ref("");
 
 const user = "GDW";
 const description = ref("");
-const estimateAmount = ref<number>();
+const estimateAmount = ref(0);
 const description1 = ref("");
-const unitPriceOfEstimate = ref<number>();
-const sumPriceOfEstimate = ref<number>();
+const unitPriceOfEstimate = ref(0)
+const sumPriceOfEstimate = ref(0)
 
 // 견적 등록 데이터 객체
 const estimatedata = ref([]);
@@ -345,15 +345,8 @@ watch(selectedCode, async (newValue, oldValue) => {
   }
 });
 
-// watch([estimateAmount, unitPriceOfEstimate], () => {
-  
-//    sumPriceOfEstimate.value = estimateAmount.value * unitPriceOfEstimate.value
-// });
-
 watch([estimateAmount, unitPriceOfEstimate], () => {
-  if(unitPriceOfEstimate.value && estimateAmount.value ){
-    sumPriceOfEstimate.value = estimateAmount.value * unitPriceOfEstimate.value
-  }
+   sumPriceOfEstimate.value = estimateAmount.value * unitPriceOfEstimate.value
 });
 
 // 선택된 거래처명 변경 시 호출되는 함수
@@ -400,6 +393,7 @@ const fetchData1 = async () => {
     detailCodes.value = response.map((item: any) => item.detailCode);
 
     console.log("품목코드 목록:", detailCodes.value);
+    console.log('response124151515', detailCodeList.value)
 
     return detailCodes.value;
   } catch (error) {
@@ -481,6 +475,7 @@ const addEstimateWithDetails = async () => {
     // 성공적인 제출 후 데이터 초기화
     estimatedata.value = [];
     detaildata.value = [];
+    console.log('isestimatedetailDialogVisible', isestimatedetailDialogVisible)
 
   } catch (error) {
     console.error("견적 및 상세 등록 실패:", error);

@@ -3,28 +3,33 @@ import {
   getUnitPriceOfEstimate,
   addNewEstimates,
   getEstimateContractInfo,
-  getEstimateDetail,
   addNewContract,
   getContract,
   getContractDetail,
   getSalesPlan,
   getDeliverableContractList,
   addDelivery,
-  getSalesPlanByDate
+  putModifyEstimate,
+  getSearchEstimatesList,
+  getEstimateDetail,
+  deleteEstimate,
+  deleteContract,
 } from '@/api/logi/sales'
 
 export const salesStore = defineStore('salesStore', {
   state: () => ({
     unitPriceOfEstimate: 0 as number, 
     estimateContractInfo: [] as any, 
-    estimateDetailInfo: [] as any,
     contractInfo: [] as any, 
     contractDetailInfo: [] as any, // 행사정보
     salesPlanInfo: [] as any,
     deliverableContractListInfo: [] as any,
     addDeliveryStatus: '' as string,
-    salesPlanByDateList: [] as any,
-    addContractStatus: '' as string
+    putModifyEstimate: [] as any,
+    SearchEstimatesList: [] as any, //견적조회
+    estimateDetailInfo: [] as any,
+    deleteEstimate: [] as any, //견적삭제
+    deleteContract: [] as any, //수주삭제
   }),
   actions: {
     // 제품 단가 조회
@@ -53,23 +58,6 @@ export const salesStore = defineStore('salesStore', {
       console.error('Error fetching data:', error)
     }
   },
-
-   // 판매계획 조회
-   async GET_SALES_PLAN_BY_DATE(startDate: string, endDate: string) {
-    try {
-      console.log('GET_SALES_PLAN_BY_DATE:', startDate,endDate)
-      const res = await getSalesPlanByDate(startDate,endDate)
-      this.salesPlanByDateList = res.data.gridRowJson
-      console.log('Response', res)
-      console.log('Response.data', res.data)
-    }
-    catch (error) {
-      console.error('Error fetching data:', error)
-    }
-  },
-
- 
-
   // 등록된 견적 조회
   async GET_ESTIMATE_CONTRACT_INFO(startDate: string, endDate: string) {
     try {
@@ -85,28 +73,13 @@ export const salesStore = defineStore('salesStore', {
     }
   },
 
-   //견적 상세 조회
-   async SEARCH_ESTIMATE_DETAIL(estimateNo: string) {
-    try {
-      const res = await getEstimateDetail(estimateNo)
-      this.estimateDetailInfo = res.data.gridRowJson
-
-      console.log('Response', res)
-      console.log('Response.data', res.data)
-    }
-    catch (error) {
-      console.error('Error fetching data:', error)
-    }
-  },
-
   // 수주 추가
   async ADD_NEW_CONTRACT(newContractTO: object) {
     try {
       const res = await addNewContract(newContractTO)
-      this.addContractStatus = res.data.errorMsg
-      // console.log('Response', res)
-      // console.log('Response.data', res.data)
-      console.log('Response.data.errorMsg???', res.data.errorMsg)
+
+      console.log('Response', res)
+      console.log('Response.data', res.data)
     }
     catch (error) {
       console.error('Error fetching data:', error)
@@ -170,10 +143,9 @@ export const salesStore = defineStore('salesStore', {
   },
 
   //납품 추가
-  async ADD_DELIVERY(contractDetailNo: object) {
-    // console.log("ADD_DELIVERY contractDetailNo?????? ", contractDetailNo);
+  async ADD_DELIVERY(contractDetailNo: string) {
     try {
-      const res = await addDelivery(contractDetailNo);
+      const res = await addDelivery(contractDetailNo)
 
       console.log('Response', res)
       console.log('Response.data', res.data)
@@ -185,12 +157,79 @@ export const salesStore = defineStore('salesStore', {
     catch (error) {
       console.error('Error fetching data:', error)
     }
-  }
+    },
+  
+  // 견적수정
+  async PUT_MODIFY_ESTIMATE_URL(estimateTO: object) {
+    try {
+      const res = await putModifyEstimate(estimateTO)
+
+      console.log('Response', res)
+      console.log('Response.data', res.data)
+    }
+    catch (error) {
+      console.error('Error fetching data:', error)
+    }
+    },
+  
+    //견적조회
+    async SEARCH_ESTIMATES_LIST_URL(startDate: string, endDate: string, selectedItem: any) {
+    try {
+      const res = await getSearchEstimatesList(startDate, endDate, selectedItem)
+      this.SearchEstimatesList = res.data.gridRowJson
+
+      console.log('SearchEstimatesList Response', res.data.gridRowJson)
+    }
+    catch (error) {
+      console.error('Error fetching data:', error)
+    }
+    },
+    
+//견적 상세 조회
+  async SEARCH_ESTIMATE_DETAIL(estimateNo: string) {
+    try {
+      const res = await getEstimateDetail(estimateNo)
+      this.estimateDetailInfo = res.data.gridRowJson
+
+      console.log('Response', res)
+      console.log('Response.data', res.data)
+    }
+    catch (error) {
+      console.error('Error fetching data:', error)
+    }
+    },
+  
+      // 견적 삭제
+    async DELETE_ESTIMATE_URL(estimateNo: string) {
+      try {
+        const res = await deleteEstimate(estimateNo)
+
+        console.log('견적삭제 : ', res)
+        console.log('견적삭제 : ', res.data)
+
+        this.deleteEstimate = res.data.estimateNo
+      }
+      catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    },
+
+      // 수주삭제
+    async DELETE_CONTRACT_URL(contractNo: string) {
+      try {
+        const res = await deleteContract(contractNo)
+
+        console.log('수주삭제 : ', res)
+        console.log('수주삭제 : ', res.data)
+
+        this.deleteContract = res.deleteContract.contractNo
+      }
+      catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    },
+
 
 
   },
 })
-function typeOf(contractDetailNo: string[]): any {
-  throw new Error('Function not implemented.')
-}
-

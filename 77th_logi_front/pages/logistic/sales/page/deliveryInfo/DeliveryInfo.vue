@@ -80,13 +80,10 @@
         </VCardText>
         <VCardText>
           <VDataTable
-            v-model="selectData"
             :headers="headers"
             :items="infodata"
             @click:row="selectRow"
             :items-per-page="5"
-            return-object
-            show-select
           />
         </VCardText>
       </VCard>
@@ -102,6 +99,7 @@
             :headers="detailheaders"
             :items="infodata1"
             :items-per-page="5"
+            @click:row="selectRow2"
           />
         </VCardText>
       </VCard>
@@ -112,7 +110,6 @@
 <script setup lang="ts">
 import { companyStore } from "@/store/hr/company";
 import { salesStore } from "@/store/logi/sales";
-import type { ContractInfoTO } from "@/types/logistic/sales/sales";
 import axios from "axios";
 import { ref, onMounted, computed } from "vue";
 import { VDataTable } from "vuetify/labs/VDataTable";
@@ -126,8 +123,7 @@ const endDate = ref("");
 const infodata = ref([]);
 const infodata1 = ref([]);
 const infodata2 = ref([]);
-const selectData =ref([]);
-const contractDetailNoList = ref<string[]>([])
+const infodata3 = ref([]);
 
 const customerData = ref("");
 const textFieldValue = ref("");
@@ -203,32 +199,20 @@ const detailheaders = [
   { title: "비고", key: "description", width: 200, align: "center" },
 ];
 
-
-const selectRow = async (item: any, row: any | any[]) => {
-  // row가 배열인지 단일 객체인지 체크하여 배열로 변환
-  const rows = Array.isArray(row) ? row : [row];
-
-  console.log("Selected Row(s):", rows.map(r => r?.internalItem?.columns));
-  rows.forEach(row => {
-    console.log("Selected Row Index:", row.internalItem.index);
-  });
-
+const selectRow = async (item: any, row: any) => {
   try {
-    await Promise.all(rows.map(async (row) => {
-      const selectedContractNo = row?.internalItem?.columns.contractNo;
-      
-      // Vue에서의 상태 관리 예시
-      contractDetail.value = row.internalItem.columns;
-      // selectData.value = row?.internalItem?.columns;
+    console.log("Selected Row:", row?.internalItem?.columns);
+    console.log("Selected Row Index:", row.internalItem.index);
 
-      // 선택된 contractNo에 해당하는 상세 정보 불러오기
-      infodata1.value = await fetchData1(selectedContractNo);
-    }));
+    // 선택된 행의 contractNo 가져오기
+    const selectedContractNo = row?.internalItem?.columns.contractNo;
+
+    // 선택된 contractNo에 해당하는 상세 정보 불러오기
+    infodata1.value = await fetchData1(selectedContractNo);
   } catch (error) {
-    console.error("Error selecting rows:", error);
+    console.error("Error selecting row:", error);
   }
 };
-
 
 const fetchData = async () => {
   try {
@@ -262,6 +246,9 @@ const fetchData4 = async () => {
 
 const fetchData1 = async (selectedContractNo: string) => {
   try {
+    // const response = await axios.get(
+    //   `http://localhost:8282/logi/sales/searchContractDetail?contractNo=${selectedContractNo}`
+    // );
     await salesStore().SEARCH_CONTRACT_DETAIL(selectedContractNo);
   
     infodata1.value = salesStore().contractDetailInfo;
@@ -278,6 +265,12 @@ const fetchData2 = async () => {
   try {
     const searchCondition = "ALL";
     const workplaceCode = "";
+    // const response = await axios.get(
+    //   "http://localhost:8282/hr/company/searchCustomer",
+    //   {
+    //     params: { searchCondition, workplaceCode },
+    //   }
+    // );
 
     await companyStore().GET_CUSTOMER_LIST(searchCondition, workplaceCode);
    
@@ -336,78 +329,37 @@ const searchDate1 = async () => {
   }
 };
 
-watch(contractDetail, () => {
-  console.log('contractDetail.value ', toRaw(contractDetail.value));
-  console.log('contractDetail.value.contractDetailNo ', contractDetail.value.contractDetailNo);
-})
-
-watch(contractDetailNoList, () => {
-  console.log('contractDetailNoList.value>>>> ', contractDetailNoList.value);})
-
-                                                                                                             
-watch(selectData, () => {
-  console.log('selectData.value>>>> ', selectData.value)})
-
-onMounted(() => {
-  console.log('onMounted - contractDetail.value ', contractDetail.value.contractDetailNo);
-  if(contractDetail.value == ""){
-    console.log('null이당');
-  }
-})
-
 const fetchData3 = async () => {
-  console.log('infodata1.value>>>> ', infodata1.value);
-  console.log('selectData.value>>>> ', selectData.value);
-  
-
-  selectData.value.map((item: ContractInfoTO) => {
-  console.log("item", item);
-  console.log("item.contractDetailTOList.length", item.contractDetailTOList.length > 0)
-  // 각 객체의 contractDetailTOList 배열에서 첫 번째 객체의 contractDetailNo를 추출하여 반환
-  if (item.contractDetailTOList.length > 0) {
-    const contractDetailNo = item.contractDetailTOList[0].contractDetailNo;
-    console.log("item.contractDetailTOList[0].contractDetailNo ", contractDetailNo);
-    if (contractDetailNo !== undefined) {  // contractDetailNo가 undefined가 아닌지 확인
-      contractDetailNoList.value.push(contractDetailNo);
-    }
-  }
-});
-
-console.log('contractDetailNoList.value>>>> ', typeof contractDetailNoList);
-console.log('contractDetailNoList.value.length>>>> ', contractDetailNoList.value.length);
-
- 
+  console.log('contractDetail.value ', contractDetail.value);
   try {
-    if (contractDetailNoList.value.length < 1) {
-      alert("납품할 수주 상세를 선택해주세요.");
+    if (!contractDetail.value) {
+      console.error("납품할 수주 상세를 선택해주세요.");
       return;
     }
-  
-    await salesStore().ADD_DELIVERY(contractDetailNoList.value)
+
+    // const response = await axios.post(
+    //   "http://localhost:8282/logi/sales/delivery",
+    //   {
+    //     contractDetailNo: contractDetail.value.contractDetailNo,
+    //     // 필요한 다른 데이터가 있으면 추가하세요
+    //   }
+    // );
+    // console.log("납품 요청 결과:", response.data);
+
+    await salesStore().ADD_DELIVERY(contractDetail.value.contractDetailNo)
     const resMsg = salesStore().addDeliveryStatus
     //const { errorMsg } = response.data;
 
     if (resMsg === "SUCCESS") {
       alert("납품 성공하였습니다!");
-      try {
-        const response = await fetchData();
-        infodata.value = response;
-      } catch (error) {
-        console.error("데이터 불러오기 에러:", error);
-      }
     } else {
       alert(`납품 요청 실패:
       ${resMsg}`);
     }
-    
   } catch (error) {
     console.error("납품 요청 에러:", error);
     alert(`납품 요청 에러: ${error.message}`);
   }
-  selectData.value = [];
-  infodata.value = [];
-  contractDetailNoList.value = [];
-
 };
 
 const selectRow2 = (selected, row) => {

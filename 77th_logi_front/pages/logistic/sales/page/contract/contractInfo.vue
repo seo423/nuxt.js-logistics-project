@@ -17,6 +17,8 @@ const infodataDetail=ref([]);
 const selectNum=ref('');
 const textFieldValue1=ref('');
 
+const selectContract =ref([])
+
 const headers = [
   { title: '수주일련번호',sortable: false, key: 'contractNo' , width:120},
   { title: '견적일련번호', key: 'estimateNo', width:150 },
@@ -156,6 +158,37 @@ const cutomerDelete=async()=>{
   infodata.value = await fetchData();
 }
 
+//삭제
+const deleteData = async () => {
+  try {
+    if (!selectContract.value) {
+      console.log('삭제할selectContract', selectContract.value)
+      console.warn('삭제할 항목을 선택하세요.')
+      alert("삭제할 데이터를 선택해주세요!");
+
+      return
+    }
+
+    const userConfirmed = window.confirm('삭제하시겠습니까?')
+
+    if (userConfirmed) {
+      const contractNo = selectContract.value.contractNo
+
+      console.log('삭제할contractNo', contractNo)
+
+      await salesStore().DELETE_CONTRACT_URL(contractNo)
+
+      handleButtonClick()
+
+      alert('수주가 성공적으로 삭제되었습니다.')
+    }
+  }
+  catch (error) {
+    console.error('데이터 삭제 오류:', error)
+    alert('수주 삭제에 실패했습니다.')
+  }
+}
+
 </script>
 
 <template>
@@ -165,16 +198,16 @@ const cutomerDelete=async()=>{
     <AppDateTimePicker
       v-model="startDate"
       placeholder="YYYY-MM-DD"
-      class="mr-2"
-      style="width: 250px"
+      class="mr-0"
+      style="width: 180px"
       prepend-icon="tabler-calendar-event"
     />
     <div class="divider">~</div>
     <AppDateTimePicker
       v-model="endDate"
       placeholder="YYYY-MM-DD"
-      class="mr-2"
-      style="width: 200px"
+      class="mr-0"
+      style="width: 180px"
     />  
     <VBtn
       color="primary"
@@ -182,6 +215,13 @@ const cutomerDelete=async()=>{
     >
       검색
     </VBtn>
+    <VBtn
+      color="primary"
+      @click="handleButtonClick"
+    >
+      삭제
+    </VBtn>
+
   </VCol>
     
     <!-- 두 번째 VRow -->
