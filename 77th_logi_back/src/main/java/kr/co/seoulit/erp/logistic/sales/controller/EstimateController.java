@@ -10,10 +10,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
-import kr.co.seoulit.erp.logistic.sales.to.UpdateEstimateTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -55,8 +53,6 @@ public class EstimateController {
 	@RequestMapping("/sales/searchEstimates")
 	public ModelMap searchEstimateInfo(@RequestParam String startDate, @RequestParam String endDate,
 			@RequestParam String dateSearchCondition) {
-		System.out.println("EstimateController.searchEstimateInfo");
-		System.out.println("startDate = " + startDate + ", endDate = " + endDate + ", dateSearchCondition = " + dateSearchCondition);
 
 //		String startDate = request.getParameter("startDate");
 //		String endDate = request.getParameter("endDate");
@@ -79,51 +75,6 @@ public class EstimateController {
 
 		return modelMap;
 	}
-
-	@Operation(summary = "견적상세 조회")
-	@RequestMapping("/searchEstimateDetail")
-	public ModelMap searchEstimateDetail(@RequestParam String estimateNo) {
-		System.out.println("estimateNo = " + estimateNo);
-		System.out.println("controller -searchContractDetail() ");
-
-		ArrayList<EstimateDetailTO> estimateDetailTOList = salesSF.getEstimateDetailList(estimateNo);
-
-		modelMap.put("gridRowJson", estimateDetailTOList);
-		modelMap.put("errorCode", 1);
-		modelMap.put("errorMsg", "성공");
-
-		return modelMap;
-	}
-
-	//견적수정
-	@Operation(summary = "견적수정")
-	@PutMapping("/sales/updateEstimates")
-	public Map<String, Object> updateEstimates(@RequestBody UpdateEstimateTO updateEstimateTO) {
-		System.out.println("컨트롤러의 updateEstimateTO = " + updateEstimateTO);
-		Map<String,Object> map = new HashMap<>();
-
-		try {
-			salesSF.updateEstimates(updateEstimateTO);
-			map.put("errorMsg", "success");
-			map.put("errorCode", 0);
-
-		} catch (Exception e2) {
-			e2.printStackTrace();
-			map.clear();
-			map.put("errorCode", -1);
-			map.put("errorMsg", e2.getMessage());
-		}
-		return map;
-	}
-
-	@Operation(summary = "견적 삭제")
-	@RequestMapping(value = "/sales/deleteEstimate", method = RequestMethod.DELETE)
-	public void deleteEstimate(@RequestParam String estimateNo) {
-		System.out.println("삭제할 estimateNo = " + estimateNo);
-		salesSF.deleteEstimate(estimateNo);
-	}
-
-
 
 	@RequestMapping("/sales/logisticExel")
 	public ModelMap logisticExel(@RequestParam String estimateNo) {

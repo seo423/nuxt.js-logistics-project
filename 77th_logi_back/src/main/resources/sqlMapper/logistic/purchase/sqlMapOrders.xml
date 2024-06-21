@@ -111,9 +111,8 @@
 	<select id="getOrderInfoList" parameterType="map" resultMap="orderInfoResult" >
 	select * from order_info
 	where
-	to_date(order_date,'YY-MM-DD')
-	between to_date(#{startDate},'YY-MM-DD') AND
-	to_date(#{endDate},'YY-MM-DD')
+	order_date
+	between #{startDate} AND #{endDate}
 	</select>
 
 </mapper>

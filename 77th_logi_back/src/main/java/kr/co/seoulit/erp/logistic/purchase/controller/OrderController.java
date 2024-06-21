@@ -31,10 +31,8 @@ public class OrderController {
 
 	//재고처리/발주필요목록 조회
 	@RequestMapping("/getOrderList")
-	public HashMap<String, Object> getOrderList(HttpServletRequest request, HttpServletResponse response) {
+	public HashMap<String, Object> getOrderList(@RequestParam String startDate, @RequestParam String endDate) {
 		HashMap<String, Object> resultMap = new HashMap<>();
-		String startDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");
 
 		try {
 			resultMap = purchaseSF.getOrderList(startDate, endDate);
@@ -78,10 +76,8 @@ public class OrderController {
 
 	//발주현황조회
 	@RequestMapping("/showOrderInfo")
-	public ModelMap showOrderInfo(HttpServletRequest request, HttpServletResponse response) {
+	public ModelMap showOrderInfo(@RequestParam String startDate, @RequestParam String endDate) {
 
-		String startDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");
 		try {
 
 			ArrayList<OrderInfoTO> orderInfoList = purchaseSF.getOrderInfoList(startDate, endDate);
@@ -101,7 +97,7 @@ public class OrderController {
 
 	//오늘날짜로 입고
 	@RequestMapping("/searchOrderInfoListOnDelivery")
-	public ModelMap searchOrderInfoListOnDelivery(HttpServletRequest request, HttpServletResponse response) {
+	public ModelMap searchOrderInfoListOnDelivery() {
 
 		try {
 
@@ -163,15 +159,11 @@ public class OrderController {
 
 	//임의발주
 	@RequestMapping("/optionOrder")
-	public HashMap<String, Object> optionOrder(HttpServletRequest request, HttpServletResponse response) {
+	public HashMap<String, Object> optionOrder(@RequestParam String itemCode, @RequestParam String itemAmount) {
 
 		HashMap<String, Object> resultMap = new HashMap<>();
 
 		try {
-
-			String itemCode = request.getParameter("itemCode");
-			String itemAmount = request.getParameter("itemAmount");
-
 			resultMap = purchaseSF.optionOrder(itemCode, itemAmount);
 			System.out.println(resultMap);
 		} catch (Exception e2) {

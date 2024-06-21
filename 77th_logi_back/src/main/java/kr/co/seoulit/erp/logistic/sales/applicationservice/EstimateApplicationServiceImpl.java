@@ -77,6 +77,8 @@ public class EstimateApplicationServiceImpl implements EstimateApplicationServic
 		// 새로운 견적일련번호 생성
 
 		newEstimateBean.setEstimateNo(newEstimateNo);
+		newEstimateBean.setContractStatus("N");
+
 		// 뷰단에서 보내온 견적 Bean 에 새로운 견적일련번호 set
 
 		estimateDAO.insertEstimate(newEstimateBean);
@@ -179,6 +181,7 @@ public class EstimateApplicationServiceImpl implements EstimateApplicationServic
 				int estimateAmount = bean.getEstimateAmount();
 				int sumPriceOfEstimate = unitPrice * estimateAmount;
 				bean.setSumPriceOfEstimate(sumPriceOfEstimate);
+
 				estimateDetailDAO.insertEstimateDetail(bean);
 				insertList.add(bean.getEstimateDetailNo()); // ES2020010301-01 <= 이다 -01 은 첫번째 견적이라서 -01 이다.
 				break;
@@ -224,9 +227,7 @@ public class EstimateApplicationServiceImpl implements EstimateApplicationServic
 
 	@Override
 	public int getUnitPriceOfEstimate(String itemCode) {
-		Integer unitPrice = estimateDetailDAO.selectUntPriceOfEstimate(itemCode);
-		return unitPrice != null ? unitPrice : 0;  // null인 경우 기본값 0 반환
-
+		return estimateDetailDAO.selectUntPriceOfEstimate(itemCode);
 	}
 
 }

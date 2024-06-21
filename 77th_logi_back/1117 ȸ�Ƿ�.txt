@@ -1,8 +1,0 @@
-IntelliJ SVN Update Test
-
-
-
-bit-bucket test 입니다.
-
-test commit입니다.
-kkk

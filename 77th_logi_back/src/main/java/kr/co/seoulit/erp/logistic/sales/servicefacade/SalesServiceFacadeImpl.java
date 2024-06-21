@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import kr.co.seoulit.erp.logistic.sales.applicationservice.*;
-import kr.co.seoulit.erp.logistic.sales.dao.EstimateDAO;
 import kr.co.seoulit.erp.logistic.sales.entity.ClientDelivery;
 import kr.co.seoulit.erp.logistic.sales.entity.SalesPlane;
 import kr.co.seoulit.erp.logistic.sales.repository.SalesPlaneRepository;
@@ -36,8 +35,6 @@ public class SalesServiceFacadeImpl implements SalesServiceFacade {
 	private ReturnApplicationService returnAS;
 	@Autowired
 	private ReturnStockApplicationService returnStockAS;
-	@Autowired
-	private EstimateDAO estimateDAO;
 
 	@Override
 	public ArrayList<EstimateTO> getEstimateList(String dateSearchCondition, String startDate, String endDate) {
@@ -346,26 +343,6 @@ public class SalesServiceFacadeImpl implements SalesServiceFacade {
 	public int getUnitPriceOfEstimate(String itemCode) {
 		return estimateAS.getUnitPriceOfEstimate(itemCode);
 	}
-
-	@Override
-	public void updateEstimates(UpdateEstimateTO updateEstimateTO) {
-		System.out.println("서비스단 updateEstimateTO = " + updateEstimateTO);
-		estimateDAO.updateEstimates(updateEstimateTO);
-		estimateDAO.updateEstimateDetail(updateEstimateTO);
-	}
-
-	@Override
-	public void deleteEstimate(String estimateNo) {
-		estimateDAO.deleteByEstimate(estimateNo);
-		estimateDAO.deleteByEstimateDetail(estimateNo);
-	}
-
-	@Override
-	public void deleteContract(String contractNo) {
-		estimateDAO.deleteByContract(contractNo);
-		estimateDAO.deleteByContractDetail(contractNo);
-	}
-
 
 }
 

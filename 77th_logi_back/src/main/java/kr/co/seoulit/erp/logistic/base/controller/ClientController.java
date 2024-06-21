@@ -30,7 +30,6 @@ public class ClientController {
     public ModelMap searchClientList(){
         return ClientSF.searchClientList();
     }
-
     @Operation(summary = "일반거래처 상세조회")
     @RequestMapping(value = "/base/searchClientDetailList", method = RequestMethod.GET)
     public ModelMap searchClientDetailList(@RequestParam @Parameter(description = "일반거래처코드") String customerCodes){
@@ -61,7 +60,6 @@ public class ClientController {
     public ModelMap searchFinanceList(){
         return ClientSF.searchFinanceList();
     }
-
     @Operation(summary = "금융거래처 상세조회")
     @RequestMapping(value = "/base/searchFinanceDetailList", method = RequestMethod.GET)
     public ModelMap searchFinanceDetailList(@RequestParam @Parameter(description = "금융거래처코드") String code){

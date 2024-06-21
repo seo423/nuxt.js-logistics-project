@@ -41,8 +41,6 @@ public class MrpController {
 	public Map<String, List<MpsTO>> getMpsList(@RequestParam String startDate,
 											   @RequestParam String endDate,
 											   @RequestParam String classification) {
-		System.out.println("MrpController.getMpsList컨트롤러단");
-		System.out.println("startDate = " + startDate + ", endDate = " + endDate + ", classification = " + classification);
 
 		Map<String, List<MpsTO>> mpsList = mrpSF.getMpsList(startDate, endDate, classification);
 		return mpsList;

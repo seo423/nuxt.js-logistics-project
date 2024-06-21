@@ -34,7 +34,7 @@ public class StockController {
 
 	//재고목록 조회
 	@RequestMapping("/searchStockList")
-	public ModelMap searchStockList(HttpServletRequest request, HttpServletResponse response) {
+	public ModelMap searchStockList() {
 
 		try {
 

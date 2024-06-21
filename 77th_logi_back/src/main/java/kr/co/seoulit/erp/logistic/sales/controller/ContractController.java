@@ -143,12 +143,4 @@ public class ContractController {
 		modelMap.put("errorMsg", "성공");
 		return modelMap;
 	}
-
-	@Operation(summary = "수주 삭제")
-	@RequestMapping(value = "/sales/deleteContract", method = RequestMethod.DELETE)
-	public void deleteContract(@RequestParam String contractNo) {
-		System.out.println("삭제할 contractNo = " + contractNo);
-		salesSF.deleteContract(contractNo);
-	}
-
 }

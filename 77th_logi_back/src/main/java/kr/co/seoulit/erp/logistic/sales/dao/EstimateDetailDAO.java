@@ -33,6 +33,6 @@ public interface EstimateDetailDAO {
 	//public void updateDueDateOfEstimate(EstimateDetailTO estimateDetailTO);
 	public void updateDueDateOfEstimate(EstimateDetailTO estimateDetailTO);
 
-	public Integer selectUntPriceOfEstimate(String itemCode);
+	public int selectUntPriceOfEstimate(String itemCode);
 
 }

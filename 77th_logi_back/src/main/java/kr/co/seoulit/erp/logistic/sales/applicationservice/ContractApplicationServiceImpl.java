@@ -218,7 +218,7 @@ public class ContractApplicationServiceImpl implements ContractApplicationServic
 
 		// ES ... 견적일련번호 , CO ... 수주일련번호
 		contractDetailDAO.procedureInsertContractDetail(param);
-		System.out.println("???");
+		System.out.println("???" + param.get("errorMsg"));
 		/**/
 		return param;
 	}
