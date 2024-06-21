@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Feb 26 09:48:32 KST 2020-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.seoulit.erp.book.dao.BookInfoDAO">
+
+    <select id="getAllBookInfos" resultType="kr.co.seoulit.erp.book.TO.BookInfo">
+        select * from BookInfo
+    </select>
+
+    <insert id="addBookInfo" parameterType="kr.co.seoulit.erp.book.TO.BookInfo">
+    <![CDATA[
+        INSERT INTO BookInfo (Title, Author, PublicationDate, Price, Description)
+        VALUES (#{title}, #{author}, #{publicationDate}, #{price}, #{description})
+        ]]>
+</insert>
+
+</mapper>
