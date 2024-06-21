@@ -4,31 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cdf0e94-2c81-4494-947d-d235d5a9f155" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/to/UpdateEstimateTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/kr/co/seoulit/erp/logistic/base/dao/ItemDAOTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/base/controller/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/base/controller/ClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/base/controller/WarehouseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/base/controller/WarehouseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/production/controller/MrpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/production/controller/MrpController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/production/to/MpsTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/production/to/MpsTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/purchase/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/purchase/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/purchase/controller/StockController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/purchase/controller/StockController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/purchase/dao/sqlMap/sqlMapOrder.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/purchase/dao/sqlMap/sqlMapOrder.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/applicationservice/ContractApplicationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/applicationservice/ContractApplicationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/applicationservice/EstimateApplicationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/applicationservice/EstimateApplicationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/controller/ContractController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/controller/ContractController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/controller/EstimateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/controller/EstimateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/dao/EstimateDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/dao/EstimateDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/dao/EstimateDetailDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/dao/EstimateDetailDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/servicefacade/SalesServiceFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/servicefacade/SalesServiceFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/servicefacade/SalesServiceFacadeImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kr/co/seoulit/erp/logistic/sales/servicefacade/SalesServiceFacadeImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sqlMapper/logistic/production/sqlMapMps.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sqlMapper/logistic/production/sqlMapMps.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sqlMapper/logistic/purchase/sqlMapOrders.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sqlMapper/logistic/purchase/sqlMapOrders.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sqlMapper/logistic/sales/sqlMapContract.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sqlMapper/logistic/sales/sqlMapContract.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sqlMapper/logistic/sales/sqlMapContractDetail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sqlMapper/logistic/sales/sqlMapContractDetail.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sqlMapper/logistic/sales/sqlMapEstimate.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sqlMapper/logistic/sales/sqlMapEstimate.xml" afterDir="false" />
-    </list>
+    <list default="true" id="3cdf0e94-2c81-4494-947d-d235d5a9f155" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,7 +52,7 @@
     "Spring Boot.Application.executor": "Run",
     "WebServerToolWindowFactoryState": "false",
     "android.gradle.sync.needed": "true",
-    "git-widget-placeholder": "main 병합 중",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/young/Documents/77th_logi_back/src/main/resources",
