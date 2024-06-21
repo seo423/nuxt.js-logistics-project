@@ -58,7 +58,44 @@
 		UPDATE ESTIMATE SET 
 			CONTRACT_STATUS = #{contractStatus:VARCHAR}
 		WHERE ESTIMATE_NO = #{estimateNo}
-	</update> 
+	</update>
+
+
+	<update id="updateEstimates" parameterType="updateEstimateTO">
+		UPDATE ESTIMATE
+		SET
+			CUSTOMER_CODE = #{newCustomer},
+			ESTIMATE_DATE = #{estimateDate},
+			CONTRACT_STATUS = #{contractStatus},
+			ESTIMATE_REQUESTER = #{estimateRequester},
+			EFFECTIVE_DATE = #{newEffectiveDate},
+			PERSON_CODE_IN_CHARGE = #{personCodeInCharge},
+			DESCRIPTION = #{newDescription}
+		WHERE ESTIMATE_NO = #{estimateNo}
+	</update>
+
+	<update id="updateEstimateDetail" parameterType="updateEstimateTO">
+		UPDATE ESTIMATE_DETAIL
+			SET
+				ITEM_CODE = #{itemCode},
+				ITEM_NAME = #{itemName},
+				UNIT_OF_ESTIMATE = #{unitOfEstimate},
+				DUE_DATE_OF_ESTIMATE = #{newDueDate},
+				ESTIMATE_AMOUNT = #{newEstimateAmount},
+				UNIT_PRICE_OF_ESTIMATE = #{newUnitPriceOfEstimate},
+				SUM_PRICE_OF_ESTIMATE = #{newSumPriceOfEstimate}
+		WHERE ESTIMATE_NO = #{estimateNo}
+	</update>
+
+	<delete id="deleteByEstimate" parameterType="String">
+		DELETE FROM ESTIMATE WHERE ESTIMATE_NO = #{estimateNo}
+	</delete>
+
+	<delete id="deleteByEstimateDetail" parameterType="String">
+		DELETE FROM ESTIMATE_DETAIL WHERE ESTIMATE_NO = #{estimateNo}
+	</delete>
+
+
 
 
 </mapper>

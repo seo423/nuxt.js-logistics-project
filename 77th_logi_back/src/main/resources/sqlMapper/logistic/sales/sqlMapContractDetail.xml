@@ -65,10 +65,7 @@
 			#{sumPriceOfContract:INTEGER} ,
 			#{processingStatus:CHAR} ,
 			#{deliveryCompletionStatus:VARCHAR} ,
-			#{description:NVARCHAR},
-			#{Status:VARCHAR} ,
-			#{deliveryCompletionStatus:VARCHAR} ,
-			#{deliveryCompletionStatus:VARCHAR} ,
+			#{description:NVARCHAR}
 		)
 	</insert>
 

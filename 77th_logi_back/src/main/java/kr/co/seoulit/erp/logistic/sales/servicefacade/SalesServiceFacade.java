@@ -111,4 +111,11 @@ public interface SalesServiceFacade {
 
 	public List<SalesPlane> findSalesPlanByDate(String startDate, String endDate);
 
+	public void updateEstimates(UpdateEstimateTO updateEstimateTO);
+
+	public void deleteEstimate(String estimateNo);
+
+	public void deleteContract(String contractNo);
+
+
 }

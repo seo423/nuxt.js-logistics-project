@@ -31,6 +31,7 @@ public class WarehouseController {
 	public ModelMap getWarehouseList() {
 		return warehouseSF.getWarehouseInfoList();
 	}
+
 	@Operation(summary = "창고 추가,수정,삭제")
 	@RequestMapping(value = "/warehousebatchListProcess", method = RequestMethod.POST)
 	public void warehousebatchListProcess(@RequestBody @Parameter(description = "창고JSON") List<WarehouseTO> batchList) {
