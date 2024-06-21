@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { productionStore } from "@/store/logi/production";
-import { salesStore } from "@/store/logi/sales";
-import type { SalesPlanTO } from "@/types/logistic/sales/sales";
-import axios from "axios";
 import { VDataTable } from "vuetify/labs/VDataTable";
+
+import axios from "axios";
 
 const startDate = ref("");
 const endDate = ref("");
-const item =ref([]);
-const selectedItem = ref<SalesPlanTO>();
+const item = ref([]);
 
 const headers = ref([
   { title: "판매계획번호", key: "salesPlanNo" },
@@ -29,90 +26,32 @@ watch([startDate, endDate], () => {
   console.log(startDate.value, endDate.value);
 });
 
-
-const getSalesPlanData = async () => {
-  console.log('getSalesPlanData 메서드 안으로 들어옴.')
+const getSalesPlanData = () => {
   if (startDate.value === "" || endDate.value === "") {
     alert("시작일 혹은 종료일을 선택해 주세요");
     return;
   }
-   //선택된 데이터를 초기화 한다.
-   selectedItem.value = undefined;
-  try {
-    salesStore().GET_SALES_PLAN_BY_DATE(startDate.value, endDate.value);
-    console.log("salesPlan??? ", salesStore().salesPlanByDateList);
-    item.value = salesStore().salesPlanByDateList;
 
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-  console.log('item.value  ', item);
-  
+  // 서버로 요청을 보내는 로직
 };
 
-watch(item, () => {
-  console.log('item ', item.value);
-})
 
-const isValid = (mpsData: any) => {
-  console.log(mpsData);
-  if (mpsData.mpsPlanDate === null) {
-    alert("MPS 계획일자를 선택해 주세요");
-    return false;
-  } else if (mpsData.scheduledEndDate === null) {
-    alert("출하 예정일을 선택해 주세요");
-    return false;
-  } else if (mpsData === "") {
-    alert("수주 항목을 선택해 주세요");
-    return false;
-  }
-  return true;
-};
-
-const saveSalesPlanMps = async () => {
-  const mpsData = selectedItem.value;
-
-  console.log("mpsData ", mpsData);
+const saveSalesPlanMps = () => {
   const bool = confirm('등록하시겠습니까?')
   if(!bool)return;
-
-  if (!isValid(mpsData)) return;
-
-  // 선택된 데이터를 초기화 한다.
-  selectedItem.value = undefined;
-  try{
-    console.log('SALES_PLAN_TO_MPS 전의 mpsData ', mpsData);
-    if(mpsData){
-    await productionStore().SALES_PLAN_TO_MPS(mpsData);
-    }
-  } catch (error) {
-    console.error('err occurred at saveMpsData:', error);
-  }
   
-startDate.value = "";
-endDate.value = "";
-item.value = [];
-console.log("contractToMps item.value!!!!" , item.value)
+  
   
 };
+const selectedRow = () => {};
 
-const selectedRow = (value, item) => {
-  console.log(item.item, "item.item 가 머고");
-  selectedItem.value = item.item;
-  console.log("selectedItem.value는 또 먼데!!!!!!!!", selectedItem.value)
-  
-};
-
+console.log("it is work at selling_plan mps");
 </script>
 
 <template>
   <div class="gap"></div>
   <div class="page_wrapper">
     <div class="header_wrap">
-      <div>
-          <label class="startDate">판매계획 일자 선택 </label>
-          <label class="endDate">  판매계획 마감일자 선택</label>
-        </div>
       <input class="date" type="date" v-model="startDate" />
       <input class="date" type="date" v-model="endDate" />
       <v-btn class="btn_search" @click="getSalesPlanData"
@@ -187,9 +126,5 @@ const selectedRow = (value, item) => {
 
 .gap {
   height: 50px;
-}
-
-.endDate {
-  margin-left: 40px;
 }
 </style>

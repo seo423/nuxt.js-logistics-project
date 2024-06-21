@@ -96,7 +96,7 @@ const saveMrp = () => {
   }
 
   const url =
-    "http://localhost:8282/logi/logistics/production/mrpGathering/registerMrpGathering";
+    "http://localhost:8282/logi/logistics/production/mrpGathering/registerMrpGathering"; //얘는 나중에 건드려보자...
   const data = {
     batchList: item._rawValue,
     mrpGatheringRegisterDate: selectedDate._rawValue,

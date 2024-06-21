@@ -7,7 +7,7 @@ import axios from "axios";
 const startDate = ref("");
 const endDate = ref("");
 const item = ref([]);
-const selectedItem = ref("");
+const selectedItem = ref([]);
 const salesPlanInfo = reactive({ type: "salesPlanInfo" });
 
 const headers = reactive([
@@ -26,27 +26,11 @@ const headers = reactive([
 
 provide("info", selectedItem);
 // 서버로 요청을 보내는 로직
-// 서버로 요청을 보내는 로직
-const getMpsData = async () => {
-  // 시작일과 종료일이 선택이 되지 않으면은 요청을 보낼수 없게 한다.
+const getMpsData = () => {
   if (startDate.value === "" || endDate.value === "") {
     alert("시작일 혹은 종료일을 선택해 주세요.");
     return;
   }
-  console.log(startDate.value, endDate.value);
-  const url = "http://localhost:8282/logi/logistics/production/searchMpsInfo";
-  const params = { startDate: startDate.value, endDate: endDate.value, classification: "판매계획" };
-
-  const response = await axios
-    .get(url, {
-      params: params,
-    })
-    .catch((err) => console.log("err at getMpsData() is :", err));
-  item.value = response.data.result;
-
-  // 응답을 받고 나서selectedItem ref를 초기화
-  selectedItem.value = "";
-  console.log(response.data.result);
 };
 
 // promise안에 값이 들어있는 객체가있다.
@@ -67,7 +51,7 @@ const selectedRow = (value, item) => {
         <input name="startDate" class="date" type="date" v-model="startDate" />
       </div>
       <input class="date" type="date" v-model="endDate" />
-      <v-btn class="btn_search" @click="getMpsData">판매계획조회</v-btn>
+      <v-btn class="btn_search" @click="getMpsData">수주조회</v-btn>
       <!-- MPS 수정 모달 버튼  -->
       <MpsModifyModal sales-plan="salesPlan" />
 

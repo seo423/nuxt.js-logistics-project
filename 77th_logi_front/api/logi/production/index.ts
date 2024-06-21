@@ -1,5 +1,4 @@
 import { logiApi } from "@/api";
-import type { SalesPlanTO } from "@/types/logistic/sales/sales";
 
 const WORKORDER_MRP_LIST_URL = "/production/getWorkOrderableMrpList";
 const ADD_WORKORDER_DIALOG_URL = "/production/showWorkOrderDialog";
@@ -13,16 +12,27 @@ const SEARCH_CONTRACT_AVAILABLE_URL = "production/searchContractDetailInMpsAvail
 
 //MPS 등록가능한 수주 조회
 const WORKPLACE_LOG_URL = "/production/getProductionProcessCode";
-//수주 -> MPS 등록
+//MPS 등록
 const CONTRACT_TO_MPS_URL = "/production/convertContractDetailToMps";
-//판매계획 -> MPS 등록
-const SALES_PLAN_TO_MPS_URL = "/production/convertSalesPlanToMps";
 
 // //작업지시 모의전개 모달창에서 작업장 조회
 const GET_PRODUCTION_PROCESS_LIST = "/production/ProductionProcessList";
 // //작업지시 모의전개 모달창에서 지점 조회
 const GET_WORKPLACE_LIST = "/production/WorkplaceList";
+//MRP 소요량전개 페이지에서 수주 조회 
+const SEARCH_MPS_INFO_URL = '/production/searchMpsInfo'
+//MRP 품목별 소요량 취합 실행
+const GET_MRP_GATHERING_LIST_URL = '/production/mrpGathering/getMrpGatheringList'
+//소요량 취합 조회
+const GET_SEARCH_MRP_GATHERING_URL = '/production/mrpGathering/searchMrpGathering'
+//품목별 조달계획 디폴트 테이블
+const GET_MRP_LIST_URL = '/production/mrpGathering/getMrpList'
+//MRP 모의전개
+const OPEN_MRP_URL = '/production/openMrp'
+//MRP 등록
+const REGISTER_MRP_URL = '/production/registerMrp'
 
+///////////////////////////////////////////////////
 
 //작업지시 필요항목 조회
 function getWorkOrderMrpList(startDate: string, endDate: string) {
@@ -106,18 +116,9 @@ function getContractAvailable(startDate : string, endDate : string, searchCondit
   });
 }
 
-// 수주 -> MPS 등록
+// //MPS 등록
 function postContractToMps(mpsData : any) {
-  console.log('mpsData api, mpsData, ', mpsData);
-
   return logiApi.post(`${CONTRACT_TO_MPS_URL}`, mpsData);
-}
-
-// 판매계획 -> MPS 등록
-function postSalesPlanToMps(to : SalesPlanTO) {
-  console.log('판매계획 -> MPS api로 옴');
-  console.log('판매계획 -> MPS 등록 ', to);
-  return logiApi.post(`${SALES_PLAN_TO_MPS_URL}`, to);
 }
 
 // //작업지시 모의전개 모달창에서 작업장 조회
@@ -131,6 +132,60 @@ function getWorkplaceList() {
   console.log('logiApi.get(`${GET_WORKPLACE_LIST}`)   ', logiApi.get(`${GET_WORKPLACE_LIST}`));
 
   return logiApi.get(`${GET_WORKPLACE_LIST}`);
+}
+
+ //MRP 소요량전개 페이지에서 수주 조회 
+function getSearchMpsInfo(startDate : string, endDate : string, classification:string) {
+  return logiApi.get(`${SEARCH_MPS_INFO_URL}`, {
+    params: {
+      startDate,
+      endDate,
+      classification
+    },
+  });
+}
+
+ //MRP 품목별 소요량 취합 실행 --api만 만들어놓음
+function getMrpGatheringList(mpsNoList : string) {
+  return logiApi.get(`${GET_MRP_GATHERING_LIST_URL}`, {
+    params: {
+      mpsNoList
+    },
+  });
+}
+
+ //소요량 취합 조회 --api만 만들어놓음
+function getSearchMrpGathering(startDate : string, endDate : string, classification:string) {
+  return logiApi.get(`${GET_SEARCH_MRP_GATHERING_URL}`, {
+    params: {
+      startDate,
+      endDate,
+      classification
+    },
+  });
+}
+
+ //품목별 조달계획 디폴트 테이블 --api만 만들어놓음
+function getMrpList(mrpGatheringStatusCondition : string) {
+  return logiApi.get(`${GET_MRP_LIST_URL}`, {
+    params: {
+      mrpGatheringStatusCondition
+    },
+  });
+}
+
+ //MRP 모의전개 --api만 만들어놓음
+function openMrp(mpsNo : string) {
+  return logiApi.get(`${OPEN_MRP_URL}`, {
+    params: {
+      mpsNo
+    },
+  });
+}
+
+ //MRP 등록 --api만 만들어놓음
+function registerMrp(body: any) {
+  return logiApi.put(`${REGISTER_MRP_URL}`, body)
 }
 
 
@@ -149,5 +204,10 @@ export {
   postContractToMps,
   getProductionProcessList,
   getWorkplaceList,
-  postSalesPlanToMps
+  getSearchMpsInfo,
+  getMrpGatheringList,
+  getSearchMrpGathering,
+  getMrpList,
+  openMrp,
+registerMrp,
 }
