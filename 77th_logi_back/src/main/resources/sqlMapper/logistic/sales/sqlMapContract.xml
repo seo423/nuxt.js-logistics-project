@@ -323,4 +323,12 @@
 	<delete id="delete" parameterType="String">
 		DELETE FROM CONTRACT WHERE CONTRACT_NO = #{contractNo}
 	</delete>
+
+	<delete id="deleteByContract" parameterType="String">
+		DELETE FROM CONTRACT WHERE CONTRACT_NO = #{contractNo}
+	</delete>
+
+	<delete id="deleteByContractDetail" parameterType="String">
+		DELETE FROM CONTRACT_DETAIL WHERE CONTRACT_NO = #{contractNo}
+	</delete>
 </mapper>
