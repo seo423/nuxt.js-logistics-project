@@ -4,7 +4,6 @@ import { VDataTable } from 'vuetify/labs/VDataTable'
 import axios from 'axios';
 import NewwarehouseModal from './WarehouseModal.vue'
 import { baseStore } from '@/store/logi/base';
-import { purchaseStore } from '@/store/logi/purchase';
 
 
 const wareInfo=ref([]);
@@ -52,10 +51,8 @@ const insertWare=async({warehouseCode,warehouseName,warehouseUseOrNot,descriptio
         description:description,status:"INSERT",warehouseCode:"",warehouseName:warehouseName,warehouseUseOrNot:warehouseUseOrNot
     }
     console.log("batchList",batchList)
-    console.log('batchList 타입?' , typeof batchList)
     try {
-    await baseStore().ADD_WAREHOUSE_LIST([batchList])
-    const response = baseStore().addWarehouse
+    const response = await axios.post('http://localhost:8282/logi/base/warehousebatchListProcess',[batchList]);
         console.log("response",response.data)
         alert("등록완료.");
         wareInfoSearch();
@@ -92,8 +89,10 @@ console.log('deleteList:', deleteList);
 
 
     try {
-      await baseStore().DELETE_WAREHOUSE_LIST(deleteList)
-    const response = baseStore().deleteWarehouse
+      const response = await axios.post(
+        'http://localhost:8282/logi/base/warehousebatchListProcess', deleteList 
+      );
+
       console.log("getcompanyInfo", response.data);
       alert("삭제완료.");
       wareInfoSearch();
@@ -105,14 +104,31 @@ console.log('deleteList:', deleteList);
   }
 };
 
+
+// const detailRow=async(item:any,row:any)=>{
+//     console.log("row",row.item.warehouseCode)
+//     const warehouseCode=row.item.warehouseCode
+//     try {
+//     const response = await axios.get('http://localhost:8282/logi/purchase/warehouseStockList',{
+//         params:{warehouseCode}});
+//         console.log("response",response.data)
+//         wareInfodetail.value=response.data.gridRowJson
+//         selectRow.value=row.item
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//     return [];
+//   }
+
+// }
+
 const wareInfoDetailSearch=async()=>{
   console.log("select",selectRow._rawValue)
   const warehouseCode = selectRow._rawValue[0].replace(/\[|\]/g, '');
     try {
-    await purchaseStore().WAREHOUSE_STOCK_LIST_URL(warehouseCode)
-    const response = purchaseStore().WarehouseStockListInfo
-        console.log("창고 상세 조회 response",response)
-        wareInfodetail.value=response
+    const response = await axios.get('http://localhost:8282/logi/purchase/warehouseStockList',{
+        params:{warehouseCode}});
+        console.log("response",response.data)
+        wareInfodetail.value=response.data.gridRowJson
         // selectRow.value=row.item
   } catch (error) {
     console.error('Error fetching data:', error);

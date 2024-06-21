@@ -2,6 +2,7 @@
 import { VDataTable } from 'vuetify/labs/VDataTable'
 import { purchaseStore } from '@/store/logi/purchase'
 import { defineProps, defineEmits, ref, toRaw } from "vue";
+import axios from 'axios';
 
 const isDialogVisible = ref(false);
 const number = ref('');
@@ -77,8 +78,16 @@ const orderAndInvBtnClick = async () => {
        //const mrpGatheringNoList = toRaw(propz.selectData).map(item => item.mrpGatheringNo);
        const mrpGatheringNoList = toRaw(propz.selectData).map((item: { mrpGatheringNo: string }) => item.mrpGatheringNo);
        const mrpNoList = mrpGatheringNoList.join(',');
-
+       console.log("mrpNoList: ", mrpNoList);
+       console.log("mrpGatheringNoList: ", mrpGatheringNoList);
+       console.log("됬나 안됬나 !!");
        await purchaseStore().FETCH_ORDER_AND_INV(mrpNoList);
+       const res = await axios.post("http://192.168.1.56:8282/logi/rest/logires", 
+       {
+        mrpGatheringNoList: "전달되라!!"
+       });
+
+       console.log("restTemplate결과: " + res);
        infodata.value = purchaseStore().OrderAndInv;
 
        // VDataTable 갱신

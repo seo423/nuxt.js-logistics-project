@@ -5,7 +5,7 @@ const SEARCH_CUSTOMER_LIST_URL = '/company/searchCustomer'
 
 
 
-// 거래처조회
+// 행사 조회
 function getCustomerList(searchCondition: string, workplaceCode: string) {
   return hrApi.get(`${SEARCH_CUSTOMER_LIST_URL}`, {
     params: {

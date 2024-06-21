@@ -13,13 +13,9 @@ import {
   postContractToMps,
   getProductionProcessList,
   getWorkplaceList,
-  getSearchMpsInfo,
-  getMrpGatheringList,
-  getSearchMrpGathering,
-  getMrpList,
-  openMrp,
-  registerMrp,
+  postSalesPlanToMps
 } from "@/api/logi/production/index";
+import type { SalesPlanTO } from "@/types/logistic/sales/sales";
 
 export const productionStore = defineStore("productionStore", {
   state: () => ({
@@ -33,15 +29,9 @@ export const productionStore = defineStore("productionStore", {
     WorkSiteList: [] as any, // 작업장 리스트
     WorkSiteLogList: [] as any, // 작업장로그 리스트
     SearchContractAvailable: [] as any, //MPS 등록가능한 수주 조회
-    contractToMps : [] as any, //MPS등록
+    contractToMps : [] as any, // 수주 -> MPS등록
     productionProcessList: [] as any, //작업지시 모의전개 모달창에서 작업장 조회
-    workplaceList: [] as any, // //작업지시 모의전개 모달창에서 지점 조회
-    SearchMpsInfo: [] as any, //MRP 소요량전개 페이지에서 수주 조회 
-    MrpGatheringList: [] as any, //MRP 품목별 소요량 취합 실행
-    SearchMrpGathering: [] as any, //소요량 취합 조회
-    MrpList: [] as any, //품목별 조달계획 디폴트 테이블
-    openMrp: [] as any, //MRP 모의전개
-    registerMrp: [] as any, //MRP 등록
+    workplaceList : [] as any, // //작업지시 모의전개 모달창에서 지점 조회
 
   }),
   actions: {
@@ -176,8 +166,11 @@ export const productionStore = defineStore("productionStore", {
       }
     },
 
-    //MPS 등록
+    //수주 -> MPS 등록
     async CONTRACT_TO_MPS(mpsData : any) {
+      console.log('스토어에 옴');
+      console.log('mpsData store, mpsData, ', mpsData);
+
       try {
         const response = await postContractToMps(mpsData);
         this.contractToMps = response.data;
@@ -185,6 +178,15 @@ export const productionStore = defineStore("productionStore", {
         
       } catch (error: any) {
         console.error(error);
+      }
+    },
+    //판매계획 -> MPS 등록
+    async SALES_PLAN_TO_MPS(mpsData : SalesPlanTO) {
+    try {
+      console.log('store의 mps등록 ', mpsData);
+      const response = await postSalesPlanToMps.call(this, mpsData);
+    } catch (error: any) {
+      console.error(error);
       }
     },
     //작업지시 모의전개 모달창에서 작업장 조회
@@ -214,78 +216,6 @@ export const productionStore = defineStore("productionStore", {
       }
       catch (error) {
         console.error('Error fetching data:', error)
-      }
-    },
-        
-      //MRP 소요량전개 페이지에서 수주 조회 
-    async SEARCH_MPS_INFO_URL(startDate : string, endDate : string,classification:string) {
-      try {
-        const response = await getSearchMpsInfo(startDate, endDate, classification);
-        this.SearchMpsInfo = response.data.gridRowJson;
-        console.log('productionStore.SearchMpsInfo', this.SearchMpsInfo)
-        
-      } catch (error: any) {
-        console.error(error);
-      }
-    },
-
-    //MRP 품목별 소요량 취합 실행 --api만 만들어놓음
-    async GET_MRP_GATHERING_LIST_URL(mpsNoList : string) {
-      try {
-        const response = await getMrpGatheringList(mpsNoList);
-        this.MrpGatheringList = response.data.gridRowJson;
-        console.log('productionStore.MrpGatheringList', this.MrpGatheringList)
-        
-      } catch (error: any) {
-        console.error(error);
-      }
-    },
-
-      //소요량 취합 조회 --api만 만들어놓음
-    async GET_SEARCH_MRP_GATHERING_URL(startDate : string, endDate : string,classification:string) {
-      try {
-        const response = await getSearchMrpGathering(startDate, endDate, classification);
-        this.SearchMrpGathering = response.data.gridRowJson;
-        console.log('productionStore.SearchMrpGathering', this.SearchMrpGathering)
-        
-      } catch (error: any) {
-        console.error(error);
-      }
-    },
-
-    //품목별 조달계획 디폴트 테이블 --api만 만들어놓음
-    async GET_MRP_LIST_URL(mrpGatheringStatusCondition : string) {
-      try {
-        const response = await getMrpList(mrpGatheringStatusCondition);
-        this.MrpList = response.data.gridRowJson;
-        console.log('productionStore.MrpList', this.MrpList)
-        
-      } catch (error: any) {
-        console.error(error);
-      }
-    },
-
-    //MRP 모의전개 --api만 만들어놓음
-    async OPEN_MRP_URL(mpsNo : string) {
-      try {
-        const response = await openMrp(mpsNo);
-        this.openMrp = response.data.gridRowJson;
-        console.log('productionStore.openMrp', this.openMrp)
-        
-      } catch (error: any) {
-        console.error(error);
-      }
-    },
-
-    //MRP 등록 --api만 만들어놓음
-    async REGISTER_MRP_URL(body: any) {
-      try {
-        const response = await registerMrp(body);
-        this.registerMrp = response.data.gridRowJson;
-        console.log('productionStore.registerMrp', this.registerMrp)
-        
-      } catch (error: any) {
-        console.error(error);
       }
     },
 

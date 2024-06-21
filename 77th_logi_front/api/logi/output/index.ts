@@ -27,8 +27,18 @@ function addOutput(OutputList: any) {
 }
 
 // 출고 삭제
-function deleteOutput(outputNumber: string) {
-  return logiApi.delete(`${DELETE_OUTPUT_URL}/${outputNumber}`);
+function deleteOutput(outputNumber: string, contractNo: string, requestQuantity: string, itemName: string) {
+  console.log('outputNumber: ', outputNumber);
+  console.log('contractNo: ', contractNo);
+
+  return logiApi.delete(`${DELETE_OUTPUT_URL}`,{
+    params: {
+      outputNumber,
+      contractNo,
+      requestQuantity,
+      itemName
+    },
+  });
 }
 
 // 출고를 위한 수주 조회

@@ -35,12 +35,12 @@ const outputheaders = [
   { title: '창고', key: 'warehouseCode', width: 120 },
   { title: '출고담당자', key: 'requestPerson', width: 150 },
   { title: '품목명', key: 'itemName', width: 120 },
-  { title: '규격', key: 'standard', width: 120 },
+  // { title: '규격', key: 'standard', width: 120 },
   { title: '납기일', key: 'dueDate', width: 120 },
   { title: '입고예정일', key: 'expectedArrivalDate', width: 150 },
   { title: '단위', key: 'unitOfStock', width: 120 },
   { title: '출고수량', key: 'requestQuantity', width: 120 },
-  { title: '검사', key: 'inspection', width: 120 },
+  // { title: '검사', key: 'inspection', width: 120 },
 ]
         
 const addClose = () => {

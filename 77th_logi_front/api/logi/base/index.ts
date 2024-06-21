@@ -19,23 +19,13 @@ const UPDATE_FINANCE_CLIENT_INFO = '/base/updateFinance'
 const DELETE_FINANCE_CLIENT_INFO = '/base/deleteFinance'
 //창고조회 78th추가
 const GET_WAREHOUSE_LIST = '/base/warehouseInfo'
-//금융거래처 상세조회 78th추가
-const GET_FINANCE_DETAIL_INFO = '/base/searchFinanceDetailList'
-//창고추가 78th추가
-const ADD_WAREHOUSE_LIST = '/base/warehousebatchListProcess'
-//창고삭제 78th추가
-const DELETE_WAREHOUSE_LIST = '/base/warehousebatchListProcess'
-// 일반거래처 상세조회
-const SEARCH_CLIENT_DETAIL_URL ='/base/searchClientDetailList'
-
-//////////////////////////////////////
 
 // 회사정보 조회
 function getCompanyInfo() {
   return logiApi.get(`${COMPANY_URL}`)
 }
 
-
+//////////////////////////////////////
 
 // 사업장 조회
 function getWorkplaceList() {
@@ -44,7 +34,7 @@ function getWorkplaceList() {
 
 // 품목코드 리스트
 function getCodeList(divisionCode: string) {
-  return logiApi.get(`${GET_CODELIST_URL}`, {
+   return logiApi.get(`${GET_CODELIST_URL}`, {
     params: {
       divisionCode
     },
@@ -94,15 +84,6 @@ function getGeneralClient() {
   return logiApi.get(`${GENERAL_CLIENT_URL}`)
 }
 
-// 일반거래처 상세조회
-function searchClientDetailList(customerCodes: string) {
-  return logiApi.get(`${SEARCH_CLIENT_DETAIL_URL}`, {
-    params: {
-      customerCodes,
-    },
-  })
-}
-
 // 일반거래처 추가
 function addGeneralClient(clientdata: any) {
   return logiApi.post(`${ADD_GENERAL_CLIENT_URL}`, clientdata)
@@ -141,29 +122,9 @@ function deleteFinanceClient(accountAssociatesCode: string) {
     `${DELETE_FINANCE_CLIENT_INFO}/${accountAssociatesCode}`,
   )
 }
-
 // 창고목록조회 78th추가
 function getWarehouseList() {
   return logiApi.get(`${GET_WAREHOUSE_LIST}`)
-}
-
-// 금융거래처 상세조회
-function getFinanceDetail(code:string) {
-  return logiApi.get(`${GET_FINANCE_DETAIL_INFO}`, {
-    params: {
-      code,
-    },
-  })
-}
-
-// 창고추가 78th추가
-function addWarehouseList(batchList: any) {
-  return logiApi.post(`${ADD_WAREHOUSE_LIST}`,batchList)
-}
-
-// 창고삭제 78th추가
-function deleteWarehouseList(deleteList: any) {
-  return logiApi.post(`${DELETE_WAREHOUSE_LIST}`,deleteList)
 }
 
 export {
@@ -183,9 +144,5 @@ export {
   updateFinanceClient,
   deleteFinanceClient,
   getCodeList,
-  getWarehouseList,
-  getFinanceDetail,
-  addWarehouseList,
-  deleteWarehouseList,
-  searchClientDetailList,
+  getWarehouseList
 }

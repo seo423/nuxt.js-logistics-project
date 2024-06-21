@@ -118,13 +118,13 @@ const add = async () => {
               disabled
             />
           </VCol>
-          <VCol cols="12">
+          <VCol cols="12" sm="6">
             <AppTextField
               v-model="name"
               label="이름"
             />
           </VCol>
-          <VCol cols="12">
+          <VCol  cols="12" sm="6">
             <AppTextField
               v-model="tel"
               label="연락처"

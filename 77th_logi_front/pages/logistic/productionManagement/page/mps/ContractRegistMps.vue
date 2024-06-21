@@ -66,11 +66,8 @@ const isValid = (mpsData: any) => {
 
 // Mps 계획일 또는 출하 예정일을 선택하지 않았으면은 경고창을 띄운다.
 const saveMpsData = async () => {
-  // proxy형태의 데이터에서 온전한 객체를 추출한다.
-  /// ---> 데이터를 알아보기가 수월해짐
 
   const mpsData = selectedItem.value;
-  console.log("mpsData는 뭔뎅~~~~", toRaw(mpsData))
   
   const bool = confirm("등록하시겠습니까?");
 
@@ -85,6 +82,7 @@ const saveMpsData = async () => {
   // 선택된 데이터를 초기화 한다.
   selectedItem.value = undefined;
   try{
+    console.log('mpsData>>, mpsData, ', mpsData);
     await productionStore().CONTRACT_TO_MPS(mpsData);
     const res = productionStore().contractToMps;
     console.log("productionStore().contractToMps res", res) // -> 이부분이 빈배열로 출력 됨.

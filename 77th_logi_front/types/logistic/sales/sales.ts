@@ -16,6 +16,7 @@ export interface ContractDetailTO {
     description?: string;
 }
 
+
 export interface ContractInfoTO {
     contractNo?: string;
     estimateNo?: string;
@@ -31,6 +32,8 @@ export interface ContractInfoTO {
     description?: string;
     contractDetailTOList: ContractDetailTO[];
     deliveryCompletionStatus?: string;
+    shipmentCompletionStatus?: string;
+
 }
 
 export interface ContractTO {
@@ -87,6 +90,7 @@ export interface EstimateDetailTO {
 }
 
 export interface EstimateTO {
+    contractRequester?: string;
     effectiveDate?: string;
     estimateNo?: string;
     estimateRequester?: string;
@@ -99,20 +103,6 @@ export interface EstimateTO {
     estimateDate?: string;
     estimateDetailTOList?: EstimateDetailTO[]; // EstimateDetailTO 리스트
 
-}
-
-export interface EstimateModifyTO { 
-  estimateNo?: string;
-  customerCode?: string;
-  estimateDate?: string;
-  estimateRequester?: string;
-  effectiveDate?: string;
-  description?: string;
-  unitOfEstimate?: string;
-  dueDateOfEstimate?: string;
-  estimateAmount?: number;
-  unitPriceOfEstimate?: number;
-  sumPriceOfEstimate?: number;
 }
 
 export interface logisticExelTO {
@@ -141,7 +131,8 @@ export interface SalesPlanTO {
     unitOfSales?: string;
     mpsApplyStatus?: string;
     itemName?: string;
-    status?: string;
+    mpsPlanDate?: string;
+    scheduledEndDate?: string;
 }
 
 export interface SalesPlane {

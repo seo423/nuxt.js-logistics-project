@@ -46,12 +46,12 @@ const Registheaders1 = [
   { title: '창고', key: 'warehouseCode', width: 120 },
   { title: '출고담당자', key: 'requestPerson', width: 150 },
   { title: '품목명', key: 'itemName', width: 120 },
-  { title: '규격', key: 'standard', width: 120 },
+  // { title: '규격', key: 'standard', width: 120 },
   { title: '납기일', key: 'dueDate', width: 120 },
-  { title: '입고예정일', key: 'expectedArrivalDate', width: 150 },
+  // { title: '입고예정일', key: 'expectedArrivalDate', width: 150 },
   // { title: '단위', key: 'unitOfStock', width: 120 },
   { title: '출고수량', key: 'requestQuantity', width: 120 },
-  { title: '검사', key: 'inspection', width: 120 },
+  // { title: '검사', key: 'inspection', width: 120 },
 ]
 
 const searchCondition = 'searchByDate'
@@ -131,6 +131,7 @@ watch(selectedItem, async (selectedValue: any) => {
 
 // 한 item 클릭 시 itemCode 추출 : 출고등록현황
 watch(selectedItem2, (selectedValue2: any) => {
+  console.log("selecteditem2.value>>>>", toRaw(selecteditem2.value));
   if (toRaw(selectedValue2.length) === 0)
     selecteditem2.value = []
   else
@@ -148,9 +149,15 @@ const deleteOutput = async () => {
 
   if (confirmed) {
     const outputNumber = selecteditem2.value.outputNumber
+    const contractNo = selecteditem2.value.contractNo
+    const requestQuantity = selecteditem2.value.requestQuantity
+    const itemName = selecteditem2.value.itemName
+
 
     try {
-      await outputStore().DELETE_OUTPUT_INFO(outputNumber)
+      console.log('outputNumber: ', outputNumber);
+      console.log('contractNo: ', contractNo);
+      await outputStore().DELETE_OUTPUT_INFO(outputNumber, contractNo, requestQuantity, itemName)
       search()
       alert('성공적으로 삭제되었습니다.')
     }

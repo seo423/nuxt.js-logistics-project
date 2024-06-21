@@ -3,7 +3,6 @@ import { VDataTable } from "vuetify/labs/VDataTable";
 import MrpSimulationModal from "./MrpSimulationModal.vue";
 import MpsModifyModal from "./MpsModifyModal.vue";
 import axios from "axios";
-import { productionStore } from "@/store/logi/production";
 
 //for test commit
 
@@ -35,10 +34,10 @@ const getMpsData = async () => {
     alert("시작일 혹은 종료일을 선택해 주세요.");
     return;
   }
-  console.log(startDate.value, endDate.value);
+
   console.log(startDate.value, endDate.value);
   const url = "http://localhost:8282/logi/logistics/production/searchMpsInfo";
-  const params = { startDate: startDate.value, endDate: endDate.value };
+  const params = { startDate: startDate.value, endDate: endDate.value, classification: "수주" };
 
   const response = await axios
     .get(url, {
@@ -46,7 +45,6 @@ const getMpsData = async () => {
     })
     .catch((err) => console.log("err at getMpsData() is :", err));
   item.value = response.data.result;
-
 
   // 응답을 받고 나서selectedItem ref를 초기화
   selectedItem.value = "";

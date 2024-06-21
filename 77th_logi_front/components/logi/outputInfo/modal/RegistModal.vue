@@ -160,23 +160,6 @@ onMounted(async () => {
             sm="6"
             md="4"
           >
-            <AppTextField
-              v-model="expectedArrivalDate"
-              type="date"
-              label="입고예정일"
-            />
-          </VCol>
-          <VCol
-            cols="12"
-            sm="6"
-            md="4"
-          >
-            <AppTextField
-              v-model="standard"
-              label="규격"
-            />
-          </VCol>
-          <VCol cols="16" sm="8" md="4">
             <AppSelect
               v-model="warehouseCode"
               :items="wareInfo"
@@ -186,7 +169,6 @@ onMounted(async () => {
           <VCol
             cols="12"
             sm="6"
-            md="4"
           >
             <AppTextField
               v-model="requestPerson"
@@ -200,15 +182,6 @@ onMounted(async () => {
             <AppTextField
               v-model="requestQuantity"
               label="출고수량"
-            />
-          </VCol>
-          <VCol
-            cols="12"
-            sm="6"
-          >
-            <AppTextField
-              v-model="inspection"
-              label="검사"
             />
           </VCol>
         </VRow>
