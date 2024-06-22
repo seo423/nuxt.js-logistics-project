@@ -41,7 +41,7 @@ public class MpsTO  extends BaseTO{
 		this.setDueDateOfMps(contractDetail.getDueDateOfContract());
 		this.setScheduledEndDate(contractDetail.getScheduledEndDate());
 		this.setDescription(contractDetail.getDescription());
-		this.setMpsPlanAmount(contractDetail.getStockAmountUse());
+		this.setMpsPlanAmount(contractDetail.getEstimateAmount());
 		this.setMpsPlanClassification(contractDetail.getPlanClassification());
 	}
 

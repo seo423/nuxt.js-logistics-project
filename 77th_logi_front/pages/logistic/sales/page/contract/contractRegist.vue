@@ -116,12 +116,12 @@ for (const param of paramList) {
       shipmentCompletionStatus: 'N',
       estimateDetail: targetObject.estimateDetailTOList
     };
-    
+
     try {
       // 수주 등록 API 호출
       await salesStore().ADD_NEW_CONTRACT(newContractTO);
       addContractCompletion.value = true;
-      console.log(`수주 등록 완료: `, salesStore().addContractStatus);
+      console.log(`수주 등록 완료`);
     } catch (error) {
       console.error(`Error registering contract for ${targetObject.estimateNo}:`, error);
       addContractCompletion.value = false;
@@ -138,7 +138,7 @@ date.value ="";
 date1.value="";
 
 if(addContractCompletion.value){
-  alert(salesStore().addContractStatus);
+  alert('수주 등록 완료');
   handleButtonClick();
 }else{
   alert('수주 등록 중 오류가 발생했습니다');

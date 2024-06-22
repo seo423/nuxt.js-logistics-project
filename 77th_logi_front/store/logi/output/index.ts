@@ -65,10 +65,9 @@ export const outputStore = defineStore("outputStore", {
     },
 
     // 츨고 삭제
-    async DELETE_OUTPUT_INFO(outputNumber: string, contractNo: string, requestQuantity: string, itemName: string) {
+    async DELETE_OUTPUT_INFO(outputNumber: string) {
       try {
-        console.log('DELETE_OUTPUT_INFO로옴');
-        const res = await deleteOutput(outputNumber, contractNo, requestQuantity, itemName);
+        const res = await deleteOutput(outputNumber);
 
         console.log("d", res);
         console.log("d", res.data);

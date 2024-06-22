@@ -77,8 +77,6 @@ public class EstimateApplicationServiceImpl implements EstimateApplicationServic
 		// 새로운 견적일련번호 생성
 
 		newEstimateBean.setEstimateNo(newEstimateNo);
-		newEstimateBean.setContractStatus("N");
-
 		// 뷰단에서 보내온 견적 Bean 에 새로운 견적일련번호 set
 
 		estimateDAO.insertEstimate(newEstimateBean);

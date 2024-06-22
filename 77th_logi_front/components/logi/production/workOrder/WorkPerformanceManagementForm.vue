@@ -9,7 +9,6 @@ const workPerformanceHeaders = [
   { title: '생산완료날짜', key: 'workOrderCompletionDate' },
   { title: '작업지시일련번호', key: 'workOrderNo' },
   { title: '수주상세일련번호', key: 'contractDetailNo' },
-  { title: '수주상세일련번호', key: 'contractDetailNo' },
   { title: '품목구분', key: 'itemClassification' },
   { title: '품목코드', key: 'itemCode' },
   { title: '품목명', key: 'itemName' },
