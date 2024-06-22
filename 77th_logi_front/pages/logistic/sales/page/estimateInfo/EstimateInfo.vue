@@ -168,24 +168,8 @@ const detailRow = async(item:any, row:any)=>{
   }
 }
 
-const fetchData = async () => {
-  try {
-    const response = await axios.get(
-      "http://localhost:8282/logi/sales/searchEstimates",
-      {
-        params: {
-          startDate: startDate.value,
-          endDate: endDate.value,
-          dateSearchCondition: selectedItem.value,
-        },
-      }
-    );
-    console.log("estimate", response.data.gridRowJson);
-    return response.data.gridRowJson;
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-};
+//병합좀 되라!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
 
 </script>

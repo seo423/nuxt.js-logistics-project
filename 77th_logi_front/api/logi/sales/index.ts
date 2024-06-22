@@ -106,6 +106,55 @@ function addDelivery(contractDetailNo: object) {
   return logiApi.post(`${ADD_DELIVERY_URL}`, contractDetailNo)
 }
 
+// 견적 수정
+function putModifyEstimate(estimateTO: object) {
+  return logiApi.put(`${PUT_MODIFY_ESTIMATE_URL}`, estimateTO);
+}
+  
+//견적조회
+function getSearchEstimatesList(startDate: string, endDate: string, selectedItem: any) {
+  return logiApi.get(`${SEARCH_ESTIMATES_LIST_URL}`, {
+    params: {
+      startDate: startDate,
+      endDate: endDate,
+      dateSearchCondition: selectedItem,
+    },
+  });
+}
+
+//견적상세조회
+// 견적 상세 조회
+function getEstimateDetail(estimateNo: string) {
+  return logiApi.get(`${SEARCH_ESTIMATE_DETAIL_URL}`, {
+    params: {
+      estimateNo
+    },
+  });
+}
+
+// 견적 삭제
+function deleteEstimate(estimateNo: string) {
+  return logiApi.delete(`${DELETE_ESTIMATE_URL}`, {
+    params: {
+      estimateNo,
+    },
+  })
+}
+
+// 수주 삭제
+function deleteContract(contractNo: string) {
+  return logiApi.delete(`${DELETE_CONTRACT_URL}`, {
+    params: {
+      contractNo,
+    },
+  })
+}
+
+
+
+
+
+
 export {
   getUnitPriceOfEstimate,
   addNewEstimates,
